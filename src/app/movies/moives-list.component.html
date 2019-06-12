@@ -1,80 +1,92 @@
-
-<div class='card'>
-    <div class='card-header'>
-        <div class="input-group mb-3 col justify-content-center">
-    
-            <input class="form-control " type="text" placeholder="Moive">
-            <div class="input-group-append">
-                <button class="btn btn-outline-dark" type="button">Add</button>
-            </div>
-        </div>
-    </div>
-
-    <div class='card-body'>
-
-      <div class='card-group'>
-      <div class='card'>
-        <div class='card-header'>
-            <h6>Watchlist</h6>
-        </div>
-
-        <div class='card-body'>
-              <div class='table-responsive'>
-                  <table class='table'>
-                      <thead>
-                          <tr>
-                            <th>
-                                <input class="form-control " type="text" placeholder="Search Movie">
-                            </th>
-                          </tr>
-                        </thead>
-                    <tbody>
-                       <tr>
-                         <td> {{movies.movieName | lowercase}} </td>
-                         <td>wolf</td>
-                       </tr>
-                    </tbody> 
-                  </table>
-            
-                </div>
-
-
-        </div>
-
-      </div>
-
-      <div class='card'>
-          <div class='card-header'>
-            <h6>Watched</h6>
-          </div>
-  
-          <div class='card-body'>
-                <div class='table-responsive'>
-                    <table class='table'>
-                        <thead>
-                            <tr>
-                              <th>
-                                  <input class="form-control " type="text" placeholder="Search Moive">
-                              </th>
-                            </tr>
-                          </thead>
-                      <tbody>
-                         <tr>
-                           
-                           <td>{{movies.movieName | lowercase}}</td>
-                         </tr>
-                      </tbody> 
-                    </table>
-              
-                  </div>
-          </div>
-  
-        </div>
-      </div>
-        
-
-
+<div class="card">
+  <div class="card-header">
+    <div class="input-group mb-3 col justify-content-center">
+      <input class="form-control " type="text" placeholder="Moive" />
+      <div class="input-group-append">
+        <button class="btn btn-outline-info" 
+                type="submit" (click)='onAdd()'>Add</button>
       </div>
     </div>
+  </div>
 
+  <div class="card-body">
+    <div class="card-group">
+      <div class="card">
+        <div class="card-header">
+          <h6>Watchlist</h6>
+        </div>
 
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table" *ngIf='movies && movies.length'>
+              <thead>
+                <tr>
+                  <th>
+                      <input
+                      class="form-control"
+                      type="text"
+                      placeholder="Search Moive"
+                      [(ngModel)] ='listFilterWL'
+                    />
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor='let movie of filteredMoviesWL'>
+                  <td>{{ movie.movieName | lowercase }}
+                      <div class="btn-group text-center pull-right">
+                          <button class="btn btn-outline-danger" type="submit"
+                                  (click)='onDelete()'>Delete</button>
+                          <button class="btn btn-outline-success" type="submit" 
+                                  (click)='onWatched()'>Watched</button>
+                        </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h6>Watched</h6>
+        </div>
+
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>
+                    <input
+                      class="form-control"
+                      type="text"
+                      placeholder="Search Moive"
+                      [(ngModel)] ='listFilterWD'
+                    />
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor='let movie of filteredMoviesWD'>
+                  <td>{{ movie.movieName | lowercase }} {{ movie.movieId }}
+                      <div class="btn-group text-center pull-right" >
+                          <button class="btn btn-outline-danger delete"
+                                  type="submit"
+                                  (click)='onDelete(10)'
+                                  >
+                                  Delete</button>
+                          <button class="btn btn-outline-success" type="submit" 
+                                  (click)='onUnwatch()'>Unwatch</button>
+                        </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,4 @@
 export interface IMovie {
-  "movieName": string
+  "movieName": string,
+  "moiveId": number
 }

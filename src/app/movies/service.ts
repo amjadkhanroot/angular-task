@@ -17,18 +17,24 @@ export class MoiveService{
   }
 
   getMovies(): Observable<IMovie[]>{
-    console.log('getMovies() enter');
     return this.http.get<IMovie[]>(this.moviesAPI).pipe(
-    tap(data => console.log('All: ' + JSON.stringify(data))),
-      catchError(this.handleError)
+    tap(data => console.log('All: ' + JSON.stringify(data)))
+    ,catchError(this.handleError)
     );
     
+  }
+
+  delMovie(id: number): Observable<IMovie[]>{
+    return this.http.delete<IMovie[]>(this.moviesAPI).pipe(
+      tap(data => console.log('All: ' + JSON.stringify(data)))
+      ,catchError(this.handleError)
+      );
   }
   
 
   private handleError(err: HttpErrorResponse) {
     
-    let errorMessage = '';
+    let errorMessage: string;
     if (err.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       errorMessage = `An error occurred: ${err.error.message}`;
