@@ -17,6 +17,7 @@ export class MoiveService{
   }
 
   getMovies(): Observable<IMovie[]>{
+    console.log('getMovies Service')
     return this.http.get<IMovie[]>(this.moviesAPI).pipe(
     tap(data => console.log('All: ' + JSON.stringify(data)))
     ,catchError(this.handleError)
@@ -25,10 +26,27 @@ export class MoiveService{
   }
 
   delMovie(id: number): Observable<IMovie[]>{
-    return this.http.delete<IMovie[]>(this.moviesAPI).pipe(
-      tap(data => console.log('All: ' + JSON.stringify(data)))
-      ,catchError(this.handleError)
-      );
+    console.log('delMovie Service')
+    return this.http.delete<IMovie[]>(this.moviesAPI +"/"+ id).pipe(
+          tap(data => console.log('All: ' + JSON.stringify(data)))
+          ,catchError(this.handleError)
+          );
+  }
+
+  updateMovie(id: number): Observable<IMovie[]>{
+    console.log('updateMovie Service')
+    return this.http.put<IMovie[]>(this.moviesAPI +"/"+ id, id).pipe(
+          tap(data => console.log('All: ' + JSON.stringify(data)))
+          ,catchError(this.handleError)
+          );
+  }
+
+  addMovie(movieName: string): Observable<IMovie[]>{
+    console.log('addMovie Service')
+    return this.http.put<IMovie[]>(this.moviesAPI, movieName).pipe(
+          tap(data => console.log('All: ' + JSON.stringify(data)))
+          ,catchError(this.handleError)
+          );
   }
   
 

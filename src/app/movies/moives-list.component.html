@@ -1,7 +1,10 @@
 <div class="card">
   <div class="card-header">
     <div class="input-group mb-3 col justify-content-center">
-      <input class="form-control " type="text" placeholder="Moive" />
+      <input class="form-control "
+             type="text" 
+             placeholder="Moive"
+             [(ngModel)] ='movieName' />
       <div class="input-group-append">
         <button class="btn btn-outline-info" 
                 type="submit" (click)='onAdd()'>Add</button>
@@ -12,8 +15,8 @@
   <div class="card-body">
     <div class="card-group">
       <div class="card">
-        <div class="card-header">
-          <h6>Watchlist</h6>
+        <div class="card-header ">
+          <h5>Watchlist <span class="badge bg-info text-light">{{filteredMoviesWL.length}}</span> </h5>
         </div>
 
         <div class="card-body">
@@ -36,7 +39,9 @@
                   <td>{{ movie.movieName | lowercase }}
                       <div class="btn-group text-center pull-right">
                           <button class="btn btn-outline-danger" type="submit"
-                                  (click)='onDelete()'>Delete</button>
+                                  (click)='onDelete(movie.movieId)'
+                                  >
+                                  Delete</button>
                           <button class="btn btn-outline-success" type="submit" 
                                   (click)='onWatched()'>Watched</button>
                         </div>
@@ -50,12 +55,12 @@
 
       <div class="card">
         <div class="card-header">
-          <h6>Watched</h6>
+          <h5>Watched <span class="badge bg-info text-light">{{filteredMoviesWD.length}}</span> </h5>
         </div>
 
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table">
+            <table class="table" *ngIf='movies && movies.length'>
               <thead>
                 <tr>
                   <th>
@@ -70,11 +75,11 @@
               </thead>
               <tbody>
                 <tr *ngFor='let movie of filteredMoviesWD'>
-                  <td>{{ movie.movieName | lowercase }} {{ movie.movieId }}
+                  <td>{{ movie.movieName | lowercase }} 
                       <div class="btn-group text-center pull-right" >
                           <button class="btn btn-outline-danger delete"
                                   type="submit"
-                                  (click)='onDelete(10)'
+                                  (click)='onDelete(movie.movieId)'
                                   >
                                   Delete</button>
                           <button class="btn btn-outline-success" type="submit" 

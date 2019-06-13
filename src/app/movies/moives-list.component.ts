@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IMovie } from './movie';
 import { MoiveService } from './service';
+import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-moives-list',
@@ -9,12 +10,24 @@ import { MoiveService } from './service';
 })
 export class MoivesListComponent implements OnInit {
 
-  movieId: number =10;
-  errorMessage: string;
-  filteredMoviesWL: IMovie[] =[];
-  filteredMoviesWD: IMovie[] =[];
-  movies: IMovie[] =[];
   
+  movieId: number;
+  errorMessage: string;
+  movies: IMovie[] =[];
+  watchlist: IMovie[]=[];
+  watched: IMovie[] = [];
+  filteredMoviesWL = this.watchlist;
+  filteredMoviesWD = this.watched;
+
+  _movieName = '';
+  public get movieName() {
+    return this._movieName;
+  }
+  public set movieName(value: string) {
+    this._movieName = value;
+  }
+
+
   //this is for Watchlist
   _listFilterWL = '';
   get listFilterWL(): string {
@@ -52,26 +65,32 @@ export class MoivesListComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('moiveService:'+this.moiveService.getMovies());
+    console.log('moiveId:'+this.movieId);
     this.moiveService.getMovies().subscribe(
       movie => { 
         this.movies = movie,
-        this.filteredMoviesWL = this.movies
-        this.filteredMoviesWD = this.movies
-        console.log('filteredMovies:'+this.filteredMoviesWL);
+        this.watchlist = this.movies
+        this.filteredMoviesWL = this.watchlist
+        console.log('filteredMoviesWL:'+this.filteredMoviesWL.length);
         console.log('movies:'+this.movies);
         console.log('movie:'+movie);
       },
       error => this.errorMessage = <any>error
       
     );
+
+
+
   }
 
   onDelete(id: number) {
-    console.log('movies.length: '+id)
+    console.log('movie id: '+id)
     this.moiveService.delMovie(id).subscribe(
       del =>{
+        console.log(del);
+        console.log('movies.length'+ this.movies.length);
         for(let i = 0; i< this.movies.length; i++){
-          if(this.movies[i].moiveId == id ){
+          if(this.movies[i].movieId == id ){
             this.movies.splice(i,1);
           }
         }
@@ -89,7 +108,14 @@ export class MoivesListComponent implements OnInit {
   }
 
   onAdd(): void{
-    console.log('Added!');
+    console.log('add: '+this._movieName);
+    if(this._movieName.length != 0){
+    this.moiveService.addMovie(this._movieName).subscribe(
+      add =>{console.log('onAdd: '+this._movieName)},
+      error => this.errorMessage = <any>error);
+    }else{
+      console.log('invaild type a movie name');
+    }
   }
 
 

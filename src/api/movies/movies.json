@@ -2,22 +2,22 @@
   
 {
   "movieName": "Wolf 1",
-  "moiveId": 10
+  "movieId": 10
 },
 
 {
   "movieName": "Wolf 2",
-  "moiveId": 20
+  "movieId": 20
 },
 
 {
   "movieName": "Wolf 3",
-  "moiveId": 30
+  "movieId": 30
 },
 
 {
   "movieName": "Wolf 4",
-  "moiveId": 40
+  "movieId": 40
 }
 
 
