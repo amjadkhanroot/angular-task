@@ -1,50 +1,80 @@
+<!-- header -->
 <div class="card">
   <div class="card-header">
     <div class="input-group mb-3 col justify-content-center">
-      <input class="form-control "
-             type="text" 
-             placeholder="Moive"
-             [(ngModel)] ='movieName' />
+      <!-- ADD Movie -->
+      <input
+        id="addMovie"
+        class="form-control "
+        type="text"
+        placeholder="Moive"
+        [(ngModel)]="movieName"
+      />
       <div class="input-group-append">
-        <button class="btn btn-outline-info" 
-                type="submit" (click)='onAdd()'>Add</button>
+        <input
+          class="btn btn-outline-info"
+          type="button"
+          value="Add"
+          (click)="onAdd()"
+        />
       </div>
     </div>
   </div>
 
   <div class="card-body">
+    <!-- card group -->
     <div class="card-group">
+      <!-- Watchlist card -->
       <div class="card">
         <div class="card-header ">
-          <h5>Watchlist <span class="badge bg-info text-light">{{filteredMoviesWL.length}}</span> </h5>
+          <div class="container">
+            <h5 class="d-inline-block mr-2">Watchlist</h5>
+            <span class="badge bg-info">
+              <div class="text-light small">
+                {{ badgeWL() }}
+              </div>
+            </span>
+          </div>
         </div>
 
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table" *ngIf='movies && movies.length'>
+            <!-- WatchlistTable -->
+            <table
+              id="WatchlistTable"
+              class="table"
+              *ngIf="movies && movies.length"
+            >
               <thead>
                 <tr>
-                  <th>
-                      <input
+                  <td>
+                    <input
                       class="form-control"
                       type="text"
                       placeholder="Search Moive"
-                      [(ngModel)] ='listFilterWL'
+                      [(ngModel)]="listFilterWL"
                     />
-                  </th>
+                  </td>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor='let movie of filteredMoviesWL'>
-                  <td>{{ movie.movieName | lowercase }}
-                      <div class="btn-group text-center pull-right">
-                          <button class="btn btn-outline-danger" type="submit"
-                                  (click)='onDelete(movie.movieId)'
-                                  >
-                                  Delete</button>
-                          <button class="btn btn-outline-success" type="submit" 
-                                  (click)='onWatched()'>Watched</button>
-                        </div>
+                <tr id="row" *ngFor="let movie of filteredMoviesWL">
+                  <td>
+                    {{ movie.movieName | lowercase }}
+                    <div class="btn-group text-center pull-right btn-group-sm">
+                      <input
+                        class="btn btn-outline-danger"
+                        type="button"
+                        value="Delete"
+                        (click)="onDelete(movie)"
+                      />
+                      <input
+                        class="btn btn-outline-success"
+                        type="button"
+                        value="Watched"
+                        (click)="onWatchStatus(movie)"
+                      />
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -53,38 +83,56 @@
         </div>
       </div>
 
+      <!-- Watched card -->
       <div class="card">
         <div class="card-header">
-          <h5>Watched <span class="badge bg-info text-light">{{filteredMoviesWD.length}}</span> </h5>
+          <div class="container">
+            <h5 class="d-inline-block mr-2">Watched</h5>
+            <span class="badge bg-info">
+              <div class="text-light small">
+                {{ badgeWD() }}
+              </div>
+            </span>
+          </div>
         </div>
 
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table" *ngIf='movies && movies.length'>
+            <table
+              id="WatchedTable"
+              class="table"
+              *ngIf="movies && movies.length"
+            >
               <thead>
                 <tr>
-                  <th>
+                  <td>
                     <input
                       class="form-control"
                       type="text"
                       placeholder="Search Moive"
-                      [(ngModel)] ='listFilterWD'
+                      [(ngModel)]="listFilterWD"
                     />
-                  </th>
+                  </td>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor='let movie of filteredMoviesWD'>
-                  <td>{{ movie.movieName | lowercase }} 
-                      <div class="btn-group text-center pull-right" >
-                          <button class="btn btn-outline-danger delete"
-                                  type="submit"
-                                  (click)='onDelete(movie.movieId)'
-                                  >
-                                  Delete</button>
-                          <button class="btn btn-outline-success" type="submit" 
-                                  (click)='onUnwatch()'>Unwatch</button>
-                        </div>
+                <tr *ngFor="let movie of filteredMoviesWD">
+                  <td>
+                    {{ movie.movieName | lowercase }}
+                    <div class="btn-group text-center pull-right btn-group-sm">
+                      <input
+                        class="btn btn-outline-danger"
+                        type="button"
+                        value="Delete"
+                        (click)="onDelete(movie)"
+                      />
+                      <input
+                        class="btn btn-outline-success"
+                        type="button"
+                        value="UnWatch"
+                        (click)="onWatchStatus(movie)"
+                      />
+                    </div>
                   </td>
                 </tr>
               </tbody>

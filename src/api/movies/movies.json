@@ -2,22 +2,32 @@
   
 {
   "movieName": "Wolf 1",
-  "movieId": 10
+  "movieId": "_10args34vd",
+  "movieStatus": 0
 },
 
 {
-  "movieName": "Wolf 2",
-  "movieId": 20
+  "movieName": "westworld 2",
+  "movieId": "_14bgrs34vd",
+  "movieStatus": 0
 },
 
 {
-  "movieName": "Wolf 3",
-  "movieId": 30
+  "movieName": "target 3",
+  "movieId": "_13kjn34vd",
+  "movieStatus": 1
 },
 
 {
-  "movieName": "Wolf 4",
-  "movieId": 40
+  "movieName": "john wick 2",
+  "movieId": "_11euklfdvd",
+  "movieStatus": 1
+},
+
+{
+  "movieName": "john wick 1",
+  "movieId": "_158ghbyfdxd",
+  "movieStatus": 0
 }
 
 

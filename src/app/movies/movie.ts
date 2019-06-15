@@ -1,4 +1,5 @@
 export interface IMovie {
   "movieName": string,
-  "movieId": number
+  "movieId": string,
+  "movieStatus": number
 }
