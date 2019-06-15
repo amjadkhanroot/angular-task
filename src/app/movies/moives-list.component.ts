@@ -90,9 +90,8 @@ export class MoivesListComponent implements OnInit {
       error => (this.errorMessage = <any>error)
     );
   }
-  refresh() {
-    throw new Error("Method not implemented.");
-  }
+
+  //----------------------------------------------------------------------
 
   //for the server
   // onDelete(movie: IMovie) {
@@ -115,7 +114,7 @@ export class MoivesListComponent implements OnInit {
   //     error => this.errorMessage = <any>error);
   // }
 
-  //demo
+  //demo : delete a movie.
   onDelete(movie: IMovie) {
     console.log(this.watchlist);
     console.log(movie);
@@ -132,6 +131,9 @@ export class MoivesListComponent implements OnInit {
     console.log(this.watched);
   }
 
+  //---------------------------------------------------------------------------------
+
+  //switch from watchlist to watched and so.
   onWatchStatus(movie: IMovie): void {
     console.log("Watched!");
     let status: number = movie.movieStatus;
@@ -179,52 +181,7 @@ export class MoivesListComponent implements OnInit {
     console.log(this.movies);
   }
 
-  // onWatched(movie: IMovie): void{
-  //   console.log('Watched!');
-
-  //   if((movie.movieStatus + 1)% 2 == 0){
-
-  //   }
-
-  //   for(let i = 0; i< this.movies.length; i++){
-  //     if(movie.movieId === this.movies[i].movieId){
-  //         let toggle: IMovie = {"movieName": movie.movieName,
-  //                                 "movieId": movie.movieId,
-  //                                 "movieStatus": 1}
-  //         this.watched.push(toggle);
-  //         this.watchlist.splice(i,1);
-
-  //     }
-  //   }
-  //   //this.refresh();
-  //   console.log(this.watchlist);
-  //         console.log(this.watched);
-  //         console.log(this.filteredMoviesWL);
-  //         console.log(this.filteredMoviesWD);
-  //         console.log(this.movies);
-  // }
-
-  // onUnwatch(movie: IMovie): void{
-  //   console.log('Unwatch!');
-  //   for(let i = 0; i< this.movies.length; i++){
-  //     if(movie.movieId === this.movies[i].movieId){
-  //         let toggle: IMovie = {"movieName": movie.movieName,
-  //                                 "movieId": movie.movieId,
-  //                                 "movieStatus": 0}
-  //         this.watchlist.push(toggle);
-  //         // for(let j = 0; j< this.watched.length, j++){
-
-  //         // }
-
-  //     }
-  //  }
-  //this.refresh();
-  // console.log(this.watchlist);
-  // console.log(this.watched);
-  // console.log(this.filteredMoviesWL);
-  // console.log(this.filteredMoviesWD);
-  // console.log(this.movies);
-  //}
+  //----------------------------------------------------------------
 
   //for the server
   // onAdd(): void{
