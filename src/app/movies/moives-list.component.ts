@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { IMovie } from "./movie";
 import { MoiveService } from "./service";
 import { empty } from "rxjs";
@@ -22,7 +22,8 @@ export class MoivesListComponent implements OnInit {
       console.log(moive);
     });
   }
-
+  //-----------------------------------------------------------------------
+  //to take the new movie name from input and store it here. (another way)
   _movieName = "";
   public get movieName() {
     return this._movieName;
@@ -31,7 +32,11 @@ export class MoivesListComponent implements OnInit {
     this._movieName = value;
   }
 
-  //-------------------------------------------------------------------------
+  //to take the new movie name from input and store it here. (another way)
+  
+  //@Output() newMovie = new EventEmitter<IMovie>();
+
+  //---------------------------------performFilter----------------------------------------
 
   //this is for Watchlist
   _listFilterWL: string;
@@ -73,7 +78,7 @@ export class MoivesListComponent implements OnInit {
     );
   }
 
-  // ------------------------------------------------------------
+  // -----------------------------ngOnInit-------------------------------
 
   ngOnInit(): void {
     console.log("moiveService:" + this.moiveService.getMovies());
@@ -91,7 +96,7 @@ export class MoivesListComponent implements OnInit {
     );
   }
 
-  //----------------------------------------------------------------------
+  //----------------------------------delete a movie------------------------------------
 
   //for the server
   // onDelete(movie: IMovie) {
@@ -114,24 +119,34 @@ export class MoivesListComponent implements OnInit {
   //     error => this.errorMessage = <any>error);
   // }
 
-  //demo : delete a movie.
-  onDelete(movie: IMovie) {
-    console.log(this.watchlist);
-    console.log(movie);
+  //demo : delete a movie. (another way)
+  // onDelete(movie: IMovie) {
+  //   console.log(this.watchlist);
+  //   console.log(movie);
 
-    for (let i = 0; i < this.movies.length; i++) {
-      if (movie.movieId == this.movies[i].movieId) {
-        this.movies.splice(i, 1);
-      }
-      console.log(this.movies);
+  //   for (let i = 0; i < this.movies.length; i++) {
+  //     if (movie.movieId == this.movies[i].movieId) {
+  //       this.movies.splice(i, 1);
+  //     }
+  //     console.log(this.movies);
+  //   }
+  //   this.refresh();
+  //   console.log("deleted");
+  //   console.log(this.watchlist);
+  //   console.log(this.watched);
+  // }
+
+  //demo : delete a movie. (another way)
+  onDelete(movie: IMovie) {
+    let indexToDelete = this.movies.indexOf(movie);
+    if (indexToDelete !== -1) {
+      this.movies.splice(indexToDelete,1);
     }
     this.refresh();
-    console.log("deleted");
-    console.log(this.watchlist);
-    console.log(this.watched);
   }
+  
 
-  //---------------------------------------------------------------------------------
+  //----------------------------------onWatchStatus----------------------------------------
 
   //switch from watchlist to watched and so.
   onWatchStatus(movie: IMovie): void {
@@ -181,7 +196,7 @@ export class MoivesListComponent implements OnInit {
     console.log(this.movies);
   }
 
-  //----------------------------------------------------------------
+  //-------------------------------add a new movie---------------------------------
 
   //for the server
   // onAdd(): void{
@@ -195,7 +210,7 @@ export class MoivesListComponent implements OnInit {
   //   }
   // }
 
-  //demo
+  // //demo : to add a new movie. (another way)
   onAdd() {
     if (this._movieName.length != 0) {
       let addMovie: IMovie = {
@@ -213,6 +228,23 @@ export class MoivesListComponent implements OnInit {
     }
   }
 
+  //demo : to add a new movie. (another way)
+  // onAdd() {
+  //   if (this._movieName.length != 0) {
+  //         let addMovie: IMovie = {
+  //           movieName: this.movieName,
+  //           movieId: this.ID(),
+  //           movieStatus: 0
+  //         };
+  //         this.newMovie.emit(addMovie);
+  //   } else {
+  //         console.log("invaild input");
+  //       }
+    
+  //     }
+
+
+
   //generate an ID
   ID(): string {
     return (
@@ -223,8 +255,8 @@ export class MoivesListComponent implements OnInit {
     );
   }
 
-  //--------------------------------------------------------------------
-  //for budget
+  //--------------------------------badge------------------------------------
+  //for badge
   badgeWL(): string {
     if (this.filteredMoviesWL.length == this.watchlist.length) {
       console.log(this.filteredMoviesWL.length);
@@ -265,7 +297,7 @@ export class MoivesListComponent implements OnInit {
     }
   }
 
-  //--------------------------------------------------------------------
+  //--------------------------------refresh------------------------------------
 
   refresh() {
     this.watchlist = this.movies.filter((m: IMovie) => m.movieStatus == 0);
